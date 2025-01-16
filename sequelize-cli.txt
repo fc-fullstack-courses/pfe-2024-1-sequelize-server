@@ -1,0 +1,14 @@
+Основні команди sequelize-cli
+  
+  npx sequelize --help - довідка по всім командам
+
+  npx sequelize init - ініціалізує секлавайзівський проект
+
+  npx sequelize db:create - на основі конфігураціїї створює базу даних якщо вона ще не існує
+  npx sequelize db:drop - на основі конфігураціїї видаляє базу даних
+
+  npx sequelize model:generate --name <Назва_моделі> --attributes <стовпчик1:домен1,стовпчик2:домен2> - генерує файл моделі у папці models та відповідний для ней файл міграції у папці migrations
+
+  npx sequelize model:generate --name User --attributes firstName:string,lastName:string,email:string,password:text,isMale:boolean,balance:decimal,birthday:dateonly
+
+  
