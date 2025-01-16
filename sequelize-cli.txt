@@ -11,4 +11,6 @@
 
   npx sequelize model:generate --name User --attributes firstName:string,lastName:string,email:string,password:text,isMale:boolean,balance:decimal,birthday:dateonly
 
-  
+  npx sequelize db:migrate - запустити всі невиконані міграції
+  npx sequelize db:migrate:undo --name <назва_міграції> - відмініє конкретну міграції
+  npx sequelize db:migrate:undo:all - відміняє всі виконані міграції
