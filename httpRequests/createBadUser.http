@@ -1,0 +1,12 @@
+POST http://localhost:5000/users
+Content-Type: application/json
+
+{
+  "firstName": "",
+  "lastName": "",
+  "email": "",
+  "password": 500,
+  "isMale": true,
+  "balance": -5000,
+  "birthday": "2021-01-01"
+}
