@@ -1,0 +1,23 @@
+POST http://localhost:5000/users
+Content-Type: application/json
+
+[
+  {
+    "firstName": "User",
+    "lastName": "Userenko",
+    "email": "user2@gmail.com",
+    "password": "12345admin",
+    "isMale": true,
+    "balance": 475,
+    "birthday": "1998-08-08"
+  },
+  {
+    "firstName": "User",
+    "lastName": "Userenko",
+    "email": "user3@gmail.com",
+    "password": "12345admin",
+    "isMale": true,
+    "balance": 100,
+    "birthday": "2000-05-15"
+  }
+]
