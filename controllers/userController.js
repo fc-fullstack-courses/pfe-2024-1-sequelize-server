@@ -17,7 +17,24 @@ module.exports.deleteUser = async (req, res, next) => {
     params: { userId },
   } = req;
 
-  res.status(200).send('User deleted');
+  // DELETE from user;
+  // await User.destroy();
+
+  // DELETE from user WHERE id = 2;
+  // await User.destroy({
+  //   where: {
+  //     id : 2
+  //   }
+  // });
+  
+  // deletedUser - кількість видаленних рядків завжди
+  const deletedUser = await User.destroy({
+    where: {
+      id : userId
+    }
+  });
+
+  res.status(200).send(`User with id ${userId} deleted`);
 };
 
 module.exports.updateUser = async (req, res, next) => {
