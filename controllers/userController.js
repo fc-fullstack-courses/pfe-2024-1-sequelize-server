@@ -40,9 +40,23 @@ module.exports.deleteUser = async (req, res, next) => {
 module.exports.updateUser = async (req, res, next) => {
   const {
     params: { userId },
+    body: newUserData
   } = req;
 
-  res.status(200).send('User updated');
+  // UPDATE users SET ... WHERE id = 1;
+  const result = await User.update(newUserData, {
+    where: {
+      id: userId
+    },
+    // RETURNING *
+    returning: true,
+    // RETURNING first_name, last_name
+    // returning: ['first_name', 'last_name']
+  });
+
+  const [rowsUpdated,[updatedUser]] = result;
+
+  res.status(200).send(updatedUser);
 };
 
 module.exports.getUsers = async (req, res, next) => {
