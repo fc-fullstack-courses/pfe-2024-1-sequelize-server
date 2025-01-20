@@ -10,7 +10,7 @@ module.exports.createUser = async (req, res, next) => {
     // створення багатьох  записів (INSERT)
     // const users = await User.bulkCreate([userData1, userData2]);
 
-    res.status(201).send(user);
+    res.status(201).send({ data: user });
   } catch (error) {
     next(error);
   }
@@ -47,7 +47,7 @@ module.exports.deleteUser = async (req, res, next) => {
     await user.destroy();
 
     // res.status(200).send(`User with id ${userId} deleted`);
-    res.status(200).send(user);
+    res.status(200).send({ data: user });
   } catch (error) {
     next(error);
   }
@@ -76,7 +76,7 @@ module.exports.updateUser = async (req, res, next) => {
       returning: true,
     });
 
-    res.status(200).send(updatedUser);
+    res.status(200).send({ data: updatedUser });
   } catch (error) {
     next(error);
   }
@@ -113,13 +113,13 @@ module.exports.getUsers = async (req, res, next) => {
 
     // SELECT *  FROM users WHERE first_name = "User" AND lastName = 'Userenko';
     const users = await User.findAll({
-      where: {
-        firstName: 'User',
-        lastName: 'Userenko',
-      },
+      // where: {
+      //   firstName: 'User',
+      //   lastName: 'Userenko',
+      // },
     });
 
-    res.status(200).send(users);
+    res.status(200).send({ data: users });
   } catch (error) {
     next(error);
   }
@@ -147,7 +147,7 @@ module.exports.getUser = async (req, res, next) => {
     //   }
     // });
 
-    res.status(200).send(user);
+    res.status(200).send({ data: user });
   } catch (error) {
     next(error);
   }
