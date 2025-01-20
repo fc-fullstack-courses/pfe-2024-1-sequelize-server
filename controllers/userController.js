@@ -13,9 +13,7 @@ module.exports.createUser = async (req, res, next) => {
 };
 
 module.exports.deleteUser = async (req, res, next) => {
-  const {
-    params: { userId },
-  } = req;
+  const { user } = req;
 
   // DELETE from user;
   // await User.destroy();
@@ -34,7 +32,11 @@ module.exports.deleteUser = async (req, res, next) => {
   //   },
   // });
 
-  const user = await User.findByPk(userId);
+  // const user = await User.findByPk(userId);
+
+  // if(!user) {
+  //   // якось обробити ситуацію і звершити запит
+  // }
 
   // видалення конкретного екземпляру
   await user.destroy();
@@ -44,10 +46,7 @@ module.exports.deleteUser = async (req, res, next) => {
 };
 
 module.exports.updateUser = async (req, res, next) => {
-  const {
-    params: { userId },
-    body: newUserData,
-  } = req;
+  const { user, body: newUserData } = req;
 
   // UPDATE users SET ... WHERE id = 1;
   // const result = await User.update(newUserData, {
@@ -62,10 +61,10 @@ module.exports.updateUser = async (req, res, next) => {
 
   // const [rowsUpdated, [updatedUser]] = result;
 
-  const user = await User.findByPk(userId);
+  // const user = await User.findByPk(userId);
 
   const updatedUser = await user.update(newUserData, {
-    returning: true
+    returning: true,
   });
 
   res.status(200).send(updatedUser);
@@ -111,9 +110,7 @@ module.exports.getUsers = async (req, res, next) => {
 };
 
 module.exports.getUser = async (req, res, next) => {
-  const {
-    params: { userId },
-  } = req;
+  const { user } = req;
 
   // SELECT * FROM users WHERE id = 1;
   // const [user] = await User.findAll({
@@ -123,7 +120,7 @@ module.exports.getUser = async (req, res, next) => {
   // });
 
   // через первинний ключ
-  const user = await User.findByPk(userId);
+  // const user = await User.findByPk(userId);
 
   // SELECT * FROM users WHERE email = 'admin@gmail.com';
   // повернути перший підходящий запис
