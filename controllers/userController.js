@@ -28,13 +28,19 @@ module.exports.deleteUser = async (req, res, next) => {
   // });
 
   // deletedUser - кількість видаленних рядків завжди
-  const deletedUser = await User.destroy({
-    where: {
-      id: userId,
-    },
-  });
+  // const deletedUser = await User.destroy({
+  //   where: {
+  //     id: userId,
+  //   },
+  // });
 
-  res.status(200).send(`User with id ${userId} deleted`);
+  const user = await User.findByPk(userId);
+
+  // видалення конкретного екземпляру
+  await user.destroy();
+
+  // res.status(200).send(`User with id ${userId} deleted`);
+  res.status(200).send(user);
 };
 
 module.exports.updateUser = async (req, res, next) => {
