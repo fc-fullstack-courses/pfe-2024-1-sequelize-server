@@ -1,14 +1,15 @@
 const express = require('express');
 const rootRouter = require('./routers');
+const { basicErrorMW } = require('./middlewares/errors/basicErrorMW');
+const { sequelizeUniqueErrorMW } = require('./middlewares/errors/userErrorsMW');
 
 const app = express();
 
 app.use(express.json());
 app.use(rootRouter);
 
-app.use(async (err, req, res, next) => {
-  res.status(419).send(err);
-});
+app.use(sequelizeUniqueErrorMW);
+app.use(basicErrorMW);
 
 const PORT = 5000;
 
