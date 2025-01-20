@@ -1,3 +1,4 @@
+const createHttpError = require('http-errors');
 const NotFoundError = require('../errors/NotFound');
 const { User } = require('../models');
 
@@ -12,7 +13,9 @@ module.exports.findUserById = async (req, res, next) => {
     if (!user) {
       //   //TODO : написати краще
       //   return res.status(404).send('User is not found');
-      throw new NotFoundError('User is not found');
+      // throw new NotFoundError('User is not found');
+
+      throw createHttpError(404, 'User is not found');
     }
 
     req.user = user;
