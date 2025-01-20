@@ -50,17 +50,23 @@ module.exports.updateUser = async (req, res, next) => {
   } = req;
 
   // UPDATE users SET ... WHERE id = 1;
-  const result = await User.update(newUserData, {
-    where: {
-      id: userId,
-    },
-    // RETURNING *
-    returning: true,
-    // RETURNING first_name, last_name
-    // returning: ['first_name', 'last_name']
-  });
+  // const result = await User.update(newUserData, {
+  //   where: {
+  //     id: userId,
+  //   },
+  //   // RETURNING *
+  //   returning: true,
+  //   // RETURNING first_name, last_name
+  //   // returning: ['first_name', 'last_name']
+  // });
 
-  const [rowsUpdated, [updatedUser]] = result;
+  // const [rowsUpdated, [updatedUser]] = result;
+
+  const user = await User.findByPk(userId);
+
+  const updatedUser = await user.update(newUserData, {
+    returning: true
+  });
 
   res.status(200).send(updatedUser);
 };
