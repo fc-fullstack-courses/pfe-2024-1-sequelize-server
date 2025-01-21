@@ -55,7 +55,7 @@ module.exports.getTodo = async (req, res, next) => {
     const todo = await Todo.findOne({
       where: {
         id: todoId,
-        userId,
+        userId: user.id,
       },
     });
 
@@ -72,7 +72,7 @@ module.exports.getTodo = async (req, res, next) => {
 module.exports.updateTodo = async (req, res, next) => {
   try {
     const {
-      // user,
+      user,
       params: { userId, todoId },
       body,
     } = req;
@@ -80,7 +80,7 @@ module.exports.updateTodo = async (req, res, next) => {
     const [todosUpdated, [todo]] = await Todo.update(body, {
       where: {
         id: todoId,
-        userId,
+        userId: user.id,
       },
       returning: true,
     });
@@ -105,7 +105,7 @@ module.exports.deleteTodo = async (req, res, next) => {
     const todo = await Todo.findOne({
       where: {
         id: todoId,
-        userId,
+        userId: user.id,
       },
     });
 
