@@ -7,8 +7,14 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {
+    static associate({User}) {
       // define association here
+      Group.belongsToMany(User, {
+        through: 'users_to_groups', // назва зв'язувальної таблиці
+        foreignKey: 'groupId', 
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+      });
     }
   }
   Group.init(
