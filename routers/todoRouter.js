@@ -1,4 +1,4 @@
-const todoRouter = require('express').Router();
+const todoRouter = require('express').Router({ mergeParams: true });
 const TodoController = require('../controllers/todoController');
 
 todoRouter.post('/', TodoController.createTodo);
