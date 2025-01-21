@@ -14,3 +14,5 @@
   npx sequelize db:migrate - запустити всі невиконані міграції
   npx sequelize db:migrate:undo --name <назва_міграції> - відмініє конкретну міграції
   npx sequelize db:migrate:undo:all - відміняє всі виконані міграції
+
+  npx sequelize migration:generate --name <назва_міграції> - створити нову пусту міграцію
