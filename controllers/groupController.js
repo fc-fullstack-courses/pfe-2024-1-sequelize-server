@@ -1,25 +1,12 @@
 const NotFoundError = require('../errors/NotFound');
 const { Group, User, Todo } = require('../models');
+const GroupService = require('../services/groups.service');
 
 module.exports.createGroup = async (req, res, next) => {
   try {
-    const {
-      body: { userId, ...groupData },
-    } = req;
+    const { body } = req;
 
-    const group = await Group.create(groupData);
-
-    if (userId) {
-      const user = await User.findByPk(userId);
-
-      if (!user) {
-        throw new NotFoundError('User not found');
-      }
-
-      // тут треба додати юзера у группу
-      await user.addGroup(group);
-      // await group.addUser(user);
-    }
+    const group = await GroupService.createGroup(body);
 
     res.status(201).send({ data: group });
   } catch (error) {
@@ -55,7 +42,8 @@ module.exports.addUserToGroup = async (req, res, next) => {
     });
   } catch (error) {
     next(error);
-  }include
+  }
+  include;
 };
 
 module.exports.getGroups = async (req, res, next) => {
@@ -65,8 +53,8 @@ module.exports.getGroups = async (req, res, next) => {
     const groups = await Group.findAll({
       include: {
         model: User,
-        required: true
-      }
+        required: true,
+      },
     });
 
     res.status(200).send({ data: groups });
@@ -110,24 +98,24 @@ module.exports.getGroup = async (req, res, next) => {
       // include: User,
       // INNER JOIN
       include: {
-        model: User, 
+        model: User,
         required: true,
         attributes: ['firstName', 'lastName'], // поля які треба дістати з джоінящоїся таблиці
         //  налаштавання для зв'язуючої таблиці
         through: {
-          attributes: [] // список атриубтів зі зв'язуючої таблиці (залишайте пустою якщо не хочете її бачити взагалі)
+          attributes: [], // список атриубтів зі зв'язуючої таблиці (залишайте пустою якщо не хочете її бачити взагалі)
         },
         // джоін на основі юзерів
         include: {
           model: Todo,
           required: true,
-          as: 'tasks'
-        }
-      }
+          as: 'tasks',
+        },
+      },
       // RIGHT JOIN
       // include: {
-      //   model: User, 
-      //   right: true 
+      //   model: User,
+      //   right: true
       // }
     });
 

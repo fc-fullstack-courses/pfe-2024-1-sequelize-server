@@ -2,5 +2,7 @@ POST http://localhost:5000/groups
 Content-Type: application/json
 
 {
-  "name": "Third Group"
+  "name": "Third Group",
+  "userId": 1,
+  "userIds": [11,13]
 }
