@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, Group, Todo } = require('../models');
 
 module.exports.createUser = async (req, res, next) => {
   try {
@@ -117,6 +117,21 @@ module.exports.getUsers = async (req, res, next) => {
       //   firstName: 'User',
       //   lastName: 'Userenko',
       // },
+      // якщо до батьківської моделі треба приджойнити декілька інших моделей 
+      // одночаасно то кидаємо їх у массиві
+      include: [
+        {
+          model: Group,
+          required: true,
+          through: {
+            attributes: [['created_at', 'created']]
+          }
+        },
+        {
+          model: Todo,
+          required: true
+        }
+      ]
     });
 
     res.status(200).send({ data: users });

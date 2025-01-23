@@ -1,5 +1,5 @@
 const NotFoundError = require('../errors/NotFound');
-const { Group, User } = require('../models');
+const { Group, User, Todo } = require('../models');
 
 module.exports.createGroup = async (req, res, next) => {
   try {
@@ -53,6 +53,84 @@ module.exports.addUserToGroup = async (req, res, next) => {
         group,
       },
     });
+  } catch (error) {
+    next(error);
+  }include
+};
+
+module.exports.getGroups = async (req, res, next) => {
+  try {
+    const {} = req;
+
+    const groups = await Group.findAll({
+      include: {
+        model: User,
+        required: true
+      }
+    });
+
+    res.status(200).send({ data: groups });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports.getGroup = async (req, res, next) => {
+  try {
+    const {
+      params: { groupId },
+    } = req;
+
+    /*
+      Отримання даних з асоціацій у секвалайзі:
+        - ледаче завантаження (Lazy loading)
+        - нетерпеливе завантаження (Eager loading)
+    */
+
+    /*
+      ледаче завантаження (Lazy loading) - додаткові дані отримають пізніше через окремі запити
+      по факту магічні методи секвалайза
+    */
+    // const group = await Group.findByPk(groupId);
+
+    // const usersInGroup = await group.getUsers();
+
+    // res.status(200).send({ data: { group, usersInGroup } });
+
+    /*
+      Нетерпляче завантаження - додаткові дані завантажуються одразу у одному запиті (через JOIN)
+    */
+
+    // ліва таблиця
+    const group = await Group.findOne({
+      where: {
+        id: groupId,
+      },
+      // LEFT JOIN
+      // include: User,
+      // INNER JOIN
+      include: {
+        model: User, 
+        required: true,
+        attributes: ['firstName', 'lastName'], // поля які треба дістати з джоінящоїся таблиці
+        //  налаштавання для зв'язуючої таблиці
+        through: {
+          attributes: [] // список атриубтів зі зв'язуючої таблиці (залишайте пустою якщо не хочете її бачити взагалі)
+        },
+        // джоін на основі юзерів
+        include: {
+          model: Todo,
+          required: true
+        }
+      }
+      // RIGHT JOIN
+      // include: {
+      //   model: User, 
+      //   right: true 
+      // }
+    });
+
+    res.status(200).send({ data: group });
   } catch (error) {
     next(error);
   }

@@ -2,6 +2,5 @@ POST http://localhost:5000/groups
 Content-Type: application/json
 
 {
-  "name": "First Group",
-  "userId": 1
+  "name": "Third Group"
 }
