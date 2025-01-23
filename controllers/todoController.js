@@ -16,7 +16,8 @@ module.exports.createTodo = async (req, res, next) => {
     // });
 
     // магічний метод секвалайза
-    const todo = await user.createTodo(body);
+    // назви магічних методів міняються згідно з наданими псевдонімами 
+    const todo = await user.createTask(body);
 
     res.status(201).send({ data: todo });
   } catch (error) {
@@ -37,7 +38,7 @@ module.exports.getTodos = async (req, res, next) => {
     //   },
     // });
 
-    const todos = await user.getTodos();
+    const todos = await user.getTasks();
 
     res.status(200).send({ data: todos });
   } catch (error) {

@@ -124,12 +124,17 @@ module.exports.getUsers = async (req, res, next) => {
           model: Group,
           required: true,
           through: {
-            attributes: [['created_at', 'created']]
-          }
+            attributes: [['created_at', 'created']],
+            // перейменування зв'язуючої таблиці у резульаті запиту
+            as: 'groupDataOfUser'
+          },
+          as: 'groups',
         },
         {
           model: Todo,
-          required: true
+          required: true,
+          // вказую що під'єдную тудушки по ассоціації таск
+          as: 'tasks'
         }
       ]
     });

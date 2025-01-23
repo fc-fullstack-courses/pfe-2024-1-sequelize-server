@@ -11,12 +11,15 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       User.hasMany(models.Todo, {
+        // встановлюємо псевдонім для тудушек
+        as: 'tasks',
         foreignKey: 'userId',
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       });
 
       User.belongsToMany(models.Group, {
+        as: 'groups',
         through: 'users_to_groups',
         foreignKey: 'userId',
         onDelete: 'CASCADE',

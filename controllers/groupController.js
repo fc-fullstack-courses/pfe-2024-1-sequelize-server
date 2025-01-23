@@ -120,7 +120,8 @@ module.exports.getGroup = async (req, res, next) => {
         // джоін на основі юзерів
         include: {
           model: Todo,
-          required: true
+          required: true,
+          as: 'tasks'
         }
       }
       // RIGHT JOIN
