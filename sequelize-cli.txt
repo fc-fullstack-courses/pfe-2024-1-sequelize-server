@@ -16,3 +16,12 @@
   npx sequelize db:migrate:undo:all - відміняє всі виконані міграції
 
   npx sequelize migration:generate --name <назва_міграції> - створити нову пусту міграцію
+  npx sequelize-cli seed:generate --name <назва_міграції_сіда> створити нову пусту міграцію для даних (сід)
+
+  npx sequelize-cli db:seed:all - накатити всі існуючі сіди
+  npx sequelize db:seed --seed <масив_назв_сідів> - накатити певні сіди
+
+  npx sequelize-cli db:seed:undo - відмінити останній сід
+  npx sequelize-cli db:seed:undo --seed <назва_сіда> - відімнити конкретний сід
+  npx sequelize-cli db:seed:undo:all - відмінити всі сіди
+  
