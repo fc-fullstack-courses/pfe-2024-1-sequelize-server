@@ -84,6 +84,7 @@ module.exports.updateUser = async (req, res, next) => {
 
 module.exports.getUsers = async (req, res, next) => {
   try {
+    const { pagination } = req;
     // SELECT * FROM users;
     // const users = await User.findAll();
 
@@ -117,26 +118,29 @@ module.exports.getUsers = async (req, res, next) => {
       //   firstName: 'User',
       //   lastName: 'Userenko',
       // },
-      // якщо до батьківської моделі треба приджойнити декілька інших моделей 
+      // якщо до батьківської моделі треба приджойнити декілька інших моделей
       // одночаасно то кидаємо їх у массиві
-      include: [
-        {
-          model: Group,
-          required: true,
-          through: {
-            attributes: [['created_at', 'created']],
-            // перейменування зв'язуючої таблиці у резульаті запиту
-            as: 'groupDataOfUser'
-          },
-          as: 'groups',
-        },
-        {
-          model: Todo,
-          required: true,
-          // вказую що під'єдную тудушки по ассоціації таск
-          as: 'tasks'
-        }
-      ]
+      // include: [
+      //   {
+      //     model: Group,
+      //     required: true,
+      //     through: {
+      //       attributes: [['created_at', 'created']],
+      //       // перейменування зв'язуючої таблиці у резульаті запиту
+      //       as: 'groupDataOfUser'
+      //     },
+      //     as: 'groups',
+      //   },
+      //   {
+      //     model: Todo,
+      //     required: true,
+      //     // вказую що під'єдную тудушки по ассоціації таск
+      //     as: 'tasks'
+      //   }
+      // ]
+      // limit: results,
+      // offset: page * results - results,
+      ...pagination
     });
 
     res.status(200).send({ data: users });
