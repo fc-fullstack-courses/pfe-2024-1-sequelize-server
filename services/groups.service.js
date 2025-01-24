@@ -1,12 +1,19 @@
-const {Op} = require('sequelize'); 
+const { Op } = require('sequelize');
 const NotFoundError = require('../errors/NotFound');
 const { Group, User, Todo } = require('../db/models');
 
 module.exports.createGroup = async (groupData) => {
+  const {
+    userId,
+    userIds,
+    file: { filename },
+    ...restGroupData
+  } = groupData;
 
-  const {userId, userIds, ...restGroupData} = groupData;
-
-  const group = await Group.create(restGroupData);
+  const group = await Group.create({
+    ...restGroupData,
+    imagePath: filename ? filename : null,
+  });
 
   if (userId) {
     const user = await User.findByPk(userId);
@@ -20,14 +27,19 @@ module.exports.createGroup = async (groupData) => {
     // await group.addUser(user);
   }
 
-  if(userIds) {
+  console.log(userIds)
+
+  if (userIds) {
     // SELECT * FROM users WHERE id IN (1,11,13)
+
+    const userIdsToFind = Array.isArray(userIds) ? userIds : userIds.split(',');
+
     const users = await User.findAll({
       where: {
         id: {
-          [Op.in]: userIds
-        }
-      }
+          [Op.in]: userIdsToFind,
+        },
+      },
     });
 
     await group.addUsers(users);
@@ -36,13 +48,13 @@ module.exports.createGroup = async (groupData) => {
   const groupWithUsers = await Group.findByPk(group.id, {
     include: {
       model: User,
-      required: true,
+      // required: true,
       attributes: ['firstName', 'lastName'],
       through: {
-        attributes: []
-      }
-    }
+        attributes: [],
+      },
+    },
   });
 
   return groupWithUsers;
-}
+};

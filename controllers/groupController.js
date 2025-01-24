@@ -4,9 +4,11 @@ const GroupService = require('../services/groups.service');
 
 module.exports.createGroup = async (req, res, next) => {
   try {
-    const { body } = req;
+    const { body, file = {}} = req;
 
-    const group = await GroupService.createGroup(body);
+    console.log(file);
+
+    const group = await GroupService.createGroup({...body, file});
 
     res.status(201).send({ data: group });
   } catch (error) {
