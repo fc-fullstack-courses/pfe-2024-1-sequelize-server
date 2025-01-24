@@ -1,5 +1,5 @@
 const NotFoundError = require('../errors/NotFound');
-const { Group, User, Todo } = require('../models');
+const { Group, User, Todo } = require('../db/models');
 const GroupService = require('../services/groups.service');
 
 module.exports.createGroup = async (req, res, next) => {
@@ -106,11 +106,11 @@ module.exports.getGroup = async (req, res, next) => {
           attributes: [], // список атриубтів зі зв'язуючої таблиці (залишайте пустою якщо не хочете її бачити взагалі)
         },
         // джоін на основі юзерів
-        include: {
-          model: Todo,
-          required: true,
-          as: 'tasks',
-        },
+        // include: {
+        //   model: Todo,
+        //   required: true,
+        //   as: 'tasks',
+        // },
       },
       // RIGHT JOIN
       // include: {

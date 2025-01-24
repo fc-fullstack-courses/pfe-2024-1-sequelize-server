@@ -1,6 +1,6 @@
 const createHttpError = require('http-errors');
 const NotFoundError = require('../errors/NotFound');
-const { User } = require('../models');
+const { User } = require('../db/models');
 
 module.exports.findUserById = async (req, res, next) => {
   try {

@@ -1,4 +1,4 @@
-const { User, Group, Todo } = require('../models');
+const { User, Group, Todo } = require('../db/models');
 
 module.exports.createUser = async (req, res, next) => {
   try {

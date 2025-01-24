@@ -1,6 +1,6 @@
 const {Op} = require('sequelize'); 
 const NotFoundError = require('../errors/NotFound');
-const { Group, User, Todo } = require('../models');
+const { Group, User, Todo } = require('../db/models');
 
 module.exports.createGroup = async (groupData) => {
 

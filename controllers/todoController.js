@@ -1,5 +1,5 @@
 const NotFoundError = require('../errors/NotFound');
-const { Todo } = require('../models');
+const { Todo } = require('../db/models');
 
 module.exports.createTodo = async (req, res, next) => {
   try {
