@@ -4,7 +4,9 @@
     "password": "postgres",
     "database": "pfe-2024-1-sequelize",
     "host": "127.0.0.1",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "migrationStorage": "json",
+    "seederStorage": "json"
   },
   "test": {},
   "production": {}
