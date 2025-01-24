@@ -2,12 +2,13 @@ const express = require('express');
 const rootRouter = require('./routers');
 const { basicErrorMW } = require('./middlewares/errors/basicErrorMW');
 const { sequelizeUniqueErrorMW } = require('./middlewares/errors/userErrorsMW');
+const { PUBLIC_FOLDER_PATH } = require('./constants');
 
 const app = express();
 
 app.use(express.json());
 
-app.use(express.static('public'));
+app.use(express.static(PUBLIC_FOLDER_PATH));
 
 app.use(rootRouter);
 

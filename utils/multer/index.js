@@ -1,10 +1,11 @@
 const fs = require('fs');
-const path = require('path');
 const multer = require('multer');
+const path = require('path');
+const { PUBLIC_FOLDER_PATH } = require('../../constants');
 
-const imagesPath = path.resolve(__dirname, '..', '..', 'public', 'images');
+const imagesPath = path.resolve(PUBLIC_FOLDER_PATH, 'images');
 
-const documentsPath = path.resolve(__dirname, '..', '..', 'public', 'documents');
+const documentsPath = path.resolve(PUBLIC_FOLDER_PATH, 'documents');
 
 if (!fs.existsSync(imagesPath)) {
   fs.mkdirSync(imagesPath, { recursive: true });
@@ -33,7 +34,6 @@ const documentsStorage = multer.diskStorage({
     cb(null, `${uniquePrefix}-${file.originalname}`);
   },
 });
-
 
 const imagesUpload = multer({ storage: imagesStorage });
 const documentsUpload = multer({ storage: documentsStorage });
